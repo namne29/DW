@@ -2,6 +2,7 @@ package project;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class ConnectionProvider {
@@ -16,9 +17,11 @@ public class ConnectionProvider {
 		}
 	}
 	
-	public void thucthiSQL (String sql) throws Exception {
+	public static ResultSet executeSQL (String sql) throws Exception {
 		Connection con = getCon();
 		Statement st = con.createStatement();
-		st.executeUpdate(sql);
+		ResultSet rs = st.executeQuery(sql);
+		
+		return rs;
 	}
 }

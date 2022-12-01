@@ -4,7 +4,7 @@
 <%@page import="project.ConnectionProvider"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/index.js"></script>
@@ -25,7 +25,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body style="background-color: white">
-
+<iframe id="txtArea1" style="display:none"></iframe>
 	<%
 	Map<String,String> showLanguage = new LanguageImpDao().vietNameseLanguage(); 
 String lang = (String) session.getAttribute("lang");
@@ -44,7 +44,7 @@ if(lang!=null) {
 				class="btn btn-danger" style="margin-left: 10px">
 				<i class="glyphicon glyphicon-print"></i>PDF				
 			</button></a> <a><button type="button"
-				class="btn btn-warning" onclick="tableToCSV()"  style="margin-left: 10px">
+				class="btn btn-warning" onclick="fnExcelReport()"  style="margin-left: 10px">
 				<i class="glyphicon glyphicon-edit"></i>Excel
 			</button></a> <a><button type="button" class="btn btn-success"
 				onclick="tableToCSV()" style="margin-left: 10px">
@@ -61,7 +61,7 @@ if(lang!=null) {
 		<br>
 		<h2 style="margin-left: 38%"><%=showLanguage.get("Header.result") %></h2>
 		<br>
-		<table class="table">
+		<table  id="tableXX" class="table">
 			<thead>
 				<tr class="danger">
 					<th><%=showLanguage.get("Header.date") %></th>
@@ -78,45 +78,21 @@ if(lang!=null) {
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="success">
-					<td>18/10/2022</td>
-					<td>Bạc Liêu</td>
-					<td>233454</td>
-					<td>52986</td>
-					<td>93135</td>
-					<td>23211</td>
-					<td>38923</td>
-					<td>3432</td>
-					<td>2322</td>
-					<td>216</td>
-					<td>61</td>
-				</tr>
-				<tr class="warning">
-					<td>18/10/2022</td>
-					<td>Vũng Tàu</td>
-					<td>233454</td>
-					<td>52986</td>
-					<td>93135</td>
-					<td>23211</td>
-					<td>38923</td>
-					<td>3432</td>
-					<td>2322</td>
-					<td>216</td>
-					<td>61</td>
-				</tr>
-				<tr class="info">
-					<td>18/10/2022</td>
-					<td>Bến Tre</td>
-					<td>233454</td>
-					<td>52986</td>
-					<td>93135</td>
-					<td>23211</td>
-					<td>38923</td>
-					<td>3432</td>
-					<td>2322</td>
-					<td>216</td>
-					<td>61</td>
-				</tr>
+				<c:forEach var="data" items="${listData}">
+                <tr class="success">
+                    <td><c:out value="${data.date}" /></td>
+                    <td><c:out value="${data.tinh}" /></td>
+                    <td><c:out value="${data.DB}" /></td>
+                    <td><c:out value="${data.g1}" /></td>
+                    <td><c:out value="${data.g2}" /></td>
+                    <td><c:out value="${data.g3}" /></td>
+                    <td><c:out value="${data.g4}" /></td>
+                    <td><c:out value="${data.g5}" /></td>
+                    <td><c:out value="${data.g6}" /></td>
+                    <td><c:out value="${data.g7}" /></td>
+                  	<td><c:out value="${data.g8}" /></td>
+                </tr>
+            	</c:forEach>
 			</tbody>
 		</table>
 	</div>
